@@ -3,6 +3,7 @@
  * Captures user email with consent checkbox before redirecting to the event URL
  */
 import { useState } from 'react';
+import { API_URL } from '../config';
 
 const EmailModal = ({ event, onClose }) => {
     const [email, setEmail] = useState('');
@@ -34,7 +35,7 @@ const EmailModal = ({ event, onClose }) => {
         setIsSubmitting(true);
 
         try {
-            const res = await fetch('/api/emails', {
+            const res = await fetch(`${API_URL}/api/emails`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

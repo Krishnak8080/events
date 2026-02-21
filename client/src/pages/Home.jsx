@@ -5,6 +5,7 @@
 import { useState, useEffect } from 'react';
 import EventCard from '../components/EventCard';
 import EmailModal from '../components/EmailModal';
+import { API_URL } from '../config';
 
 const Home = () => {
     const [events, setEvents] = useState([]);
@@ -25,7 +26,7 @@ const Home = () => {
                 limit: 12,
                 ...(search && { keyword: search }),
             });
-            const res = await fetch(`/api/events?${params}`);
+            const res = await fetch(`${API_URL}/api/events?${params}`);
             const data = await res.json();
             setEvents(data.events || []);
             setPagination(data.pagination);

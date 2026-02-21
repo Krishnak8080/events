@@ -7,6 +7,7 @@ import { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
+import { API_URL } from './config';
 
 function App() {
     const [user, setUser] = useState(null);
@@ -16,7 +17,7 @@ function App() {
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const res = await fetch('/api/auth/user', { credentials: 'include' });
+                const res = await fetch(`${API_URL}/api/auth/user`, { credentials: 'include' });
                 const data = await res.json();
                 setUser(data.user);
             } catch (error) {

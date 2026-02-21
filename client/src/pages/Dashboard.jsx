@@ -8,6 +8,7 @@ import FilterBar from '../components/FilterBar';
 import EventTable from '../components/EventTable';
 import PreviewPanel from '../components/PreviewPanel';
 import GoogleLoginButton from '../components/GoogleLoginButton';
+import { API_URL } from '../config';
 
 const Dashboard = ({ user, loading: authLoading }) => {
     const [events, setEvents] = useState([]);
@@ -36,7 +37,7 @@ const Dashboard = ({ user, loading: authLoading }) => {
             if (filters.endDate) params.set('endDate', filters.endDate);
             if (filters.status) params.set('status', filters.status);
 
-            const res = await fetch(`/api/events?${params}`, { credentials: 'include' });
+            const res = await fetch(`${API_URL}/api/events?${params}`, { credentials: 'include' });
             const data = await res.json();
             setEvents(data.events || []);
             setPagination(data.pagination);
@@ -71,7 +72,7 @@ const Dashboard = ({ user, loading: authLoading }) => {
      */
     const handleImport = async (eventId, importNotes) => {
         try {
-            const res = await fetch(`/api/events/${eventId}/import`, {
+            const res = await fetch(`${API_URL}/api/events/${eventId}/import`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include',
@@ -102,7 +103,7 @@ const Dashboard = ({ user, loading: authLoading }) => {
      */
     const handleTriggerScrape = async () => {
         try {
-            const res = await fetch('/api/scrape', {
+            const res = await fetch(`${API_URL}/api/scrape`, {
                 method: 'POST',
                 credentials: 'include',
             });

@@ -4,6 +4,7 @@
  */
 import { Link, useLocation } from 'react-router-dom';
 import GoogleLoginButton from './GoogleLoginButton';
+import { API_URL } from '../config';
 
 const Navbar = ({ user }) => {
     const location = useLocation();
@@ -31,8 +32,8 @@ const Navbar = ({ user }) => {
                         <Link
                             to="/"
                             className={`text-sm font-medium transition-colors ${location.pathname === '/'
-                                    ? 'text-primary-400'
-                                    : 'text-dark-400 hover:text-dark-200'
+                                ? 'text-primary-400'
+                                : 'text-dark-400 hover:text-dark-200'
                                 }`}
                         >
                             Events
@@ -40,8 +41,8 @@ const Navbar = ({ user }) => {
                         <Link
                             to="/dashboard"
                             className={`text-sm font-medium transition-colors ${location.pathname === '/dashboard'
-                                    ? 'text-primary-400'
-                                    : 'text-dark-400 hover:text-dark-200'
+                                ? 'text-primary-400'
+                                : 'text-dark-400 hover:text-dark-200'
                                 }`}
                         >
                             Dashboard
@@ -63,7 +64,7 @@ const Navbar = ({ user }) => {
                                     </span>
                                 </div>
                                 <a
-                                    href="/api/auth/logout"
+                                    href={`${API_URL}/api/auth/logout`}
                                     className="text-xs text-dark-500 hover:text-red-400 transition-colors font-medium"
                                 >
                                     Logout
