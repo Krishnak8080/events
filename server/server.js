@@ -24,10 +24,23 @@ const PORT = process.env.PORT || 5000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// CORS — allow requests from React frontend
+// CORS — allow requests from React frontend (dev and production)
+const allowedOrigins = [
+    'http://localhost:5173',
+    'http://localhost:5174',
+    process.env.CLIENT_URL,
+].filter(Boolean);
+
 app.use(
     cors({
-        origin: process.env.CLIENT_URL || 'http://localhost:5173',
+        origin: function (origin, callback) {
+            // Allow requests with no origin (mobile apps, curl, etc.)
+            if (!origin) return callback(null, true);
+            if (allowedOrigins.includes(origin) || origin.endsWith('.vercel.app')) {
+                return callback(null, true);
+            }
+            return callback(new Error('Not allowed by CORS'));
+        },
         credentials: true, // Allow cookies for session-based auth
     })
 );
